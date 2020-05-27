@@ -48,4 +48,4 @@ function draw() {
 let d = new Date();
 let start = d.getTime();
 
-draw(start);
+draw();
