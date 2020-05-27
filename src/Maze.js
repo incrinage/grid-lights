@@ -24,13 +24,8 @@ export default function Maze(rows = 0, cols = 0, offsetX = 0, offsetY = 0, drawT
 
 
     this.setTileColor = function (row, col, color) {
-        console.log(row, col);
-
         this.grid[row][col].color = color;
-        //check if color is not default grid color
-        //also consider many values can still look like each other
-        //potentially have a minimum threshold for what looks like 
-        //the default color
+
 
         //validate colors?
         if (color != this.mapColor) {
@@ -40,9 +35,6 @@ export default function Maze(rows = 0, cols = 0, offsetX = 0, offsetY = 0, drawT
 
     let count = 0;
     this.update = function () {
-        count++;
-        count = count%5;
-        if( count < 4) return;
 
         const size = tileQueue.size == 0? 0: 1;
         for (let i = 0; i < size; i++) {
