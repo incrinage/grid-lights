@@ -24,24 +24,28 @@ function getRandomInt(max) {
 }
 
 
-//todo learn how renderer works so that this code can be refactored
+//TODO: learn basic game design structure
 function draw() {
     return new Promise(() => {
         const currTime = new Date().getTime();
-        if (currTime - start > 250) {
-            if (path.hasMove()) {
-                    const p = path.move();
-                    maze.setTileColor(p.x, p.y, '#000000');
-                    maze.draw();
-                    maze.update();
-                    start = new Date().getTime();
-                
-            } else if (!path.hasMove()) {
-                path.setLocation(getRandomInt(rows), getRandomInt(cols));
-                path.setDestination(getRandomInt(rows), getRandomInt(cols));
-            } 
-        }
+        if (currTime - start > 100) { //how often to draw and set points
 
+            if (path.hasMove()) {
+                const p = path.move();
+                maze.setTileColor(p.x, p.y, "#" + getRandomInt(16777215).toString(16));
+            } else if (!path.hasMove()) {
+                let startRow = getRandomInt(rows);
+                let startCol = getRandomInt(cols);
+                let endRow = getRandomInt(rows);
+                let endCol = getRandomInt(rows);
+                path.setLocation(startRow, startCol);
+                path.setDestination(endRow, endCol);
+            }
+
+            maze.draw();
+            maze.update();
+            start = new Date().getTime();
+        }
         return window.requestAnimationFrame(draw);
     });
 }

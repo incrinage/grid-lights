@@ -39,6 +39,8 @@ export default function Path() {
         if (!currPath && this.paths.size > 0) currPath = this.paths.remove();
         if (!currPath && this.paths.size == 0) return { x: this.x, y: this.y };
 
+        //TODO: boundary detection is needed 
+        
         this.x += this.dx;
         this.y += this.dy;
         if (this.x < 0) this.x = 0;

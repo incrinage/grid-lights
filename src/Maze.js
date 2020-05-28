@@ -35,16 +35,14 @@ export default function Maze(rows = 0, cols = 0, offsetX = 0, offsetY = 0, drawT
 
     let count = 0;
     this.update = function () {
-
-        const size = tileQueue.size == 0? 0: 1;
+        const size = tileQueue.size
         for (let i = 0; i < size; i++) {
             let tile = tileQueue.remove();
             if (tile.color != this.mapColor) {
-                tile.color = Color.shiftColor(tile.color);
+                tile.color = Color.gradient(tile.color,this.mapColor, .3);
                 tileQueue.add(tile);
             }
         }
-
     }
 
     this.draw = function () {
