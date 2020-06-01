@@ -2,7 +2,7 @@
 export default function LinkedList(){
     let head = undefined;
     let tail = undefined;
-    this.size = 0;
+    let size = 0;
     
 
     this.add = function(item){
@@ -14,15 +14,23 @@ export default function LinkedList(){
             tail.next = n;
             tail = n;
         }
-        this.size++;
+        size++;
     }
 
     this.remove = function(){
         if(!head) return;
         const first = head.item;
         head = head.next;
-        this.size--;
+        size--;
         return first;
+    }
+
+    this.getSize = function(){
+        return size;
+    }
+
+    this.isEmpty = function(){
+        return size == 0;
     }
 }
 
