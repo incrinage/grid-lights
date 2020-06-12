@@ -17,8 +17,9 @@ export default {
         let rgb = [];
         targetRGB.forEach((c,i)=> {
             let newColor = (targetRGB[i] - startRGB[i])*weight + startRGB[i];
-            if(newColor > 255) newColor = 255;
+            if(newColor > 255) newColor = 255; // boundaries
             if(newColor < 0) newColor = 0;
+            if(Math.abs(startRGB[i]-targetRGB[i]) < 5 ) newColor = targetRGB[i];
             rgb.push(Math.floor(newColor).toString(16));
         })
         return "#" + rgb.reduce((prev,curr)=> prev + curr);

@@ -1,14 +1,15 @@
-import Color from './Color.js';
-import LinkedList from './LinkedList.js';
+import Color from '../common/Color.js';
+import LinkedList from '../common/LinkedList.js';
 import GradientTile from './GradientTile.js';
 
 
+//TrailingTileGrid
 export default function TileGrid(dimensions = { rows: 0, cols: 0 }, offset = { x: 0, y: 0 }, tileDimensions = { width: 1, height: 1 }) {
 
-
-    //TODO: performance: draw grid lines but don't instantiate every tile at once. give the illusion of tiles drawn
     const grid = [];
-    const tileQueue = new LinkedList();
+    const updateQueue = new LinkedList();
+    const drawQueue = new LinkedList();
+
     init();
 
     function init() {
@@ -28,23 +29,27 @@ export default function TileGrid(dimensions = { rows: 0, cols: 0 }, offset = { x
 
     this.setTileColor = function (row, col, color) {
         grid[row][col].color = color;
-        tileQueue.add(grid[row][col]);
+        updateQueue.addTail(grid[row][col]);
+        drawQueue.addTail(grid[row][col]);
     }
 
-    this.update = function (currTime) {
-        const size = tileQueue.getSize();
+    this.update = function (time) {
+        const size = updateQueue.size();
         for (let i = 0; i < size; i++) {
-            let tile = tileQueue.remove();
+            let tile = updateQueue.removeHead();
             if (tile.update()) {
-                tileQueue.add(tile);
+                updateQueue.addTail(tile);
             }
+            drawQueue.addTail(tile);
         }
     }
 
-    this.draw = function (currTime) {
-        grid.forEach((tileRow) => {
-            tileRow.forEach(t => t.draw());
-        });
+    this.draw = function (time) {
+        const size = drawQueue.size();
+        for (let i = 0; i < size; i++) {
+            let tile = drawQueue.removeHead();
+            tile.draw();
+        }
     };
 }
 

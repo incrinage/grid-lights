@@ -5,7 +5,7 @@ export default function LinkedList(){
     let size = 0;
     
 
-    this.add = function(item){
+    this.addTail = function(item){
         if(!head){
             head = new Node(item);
             tail = head;
@@ -17,7 +17,7 @@ export default function LinkedList(){
         size++;
     }
 
-    this.remove = function(){
+    this.removeHead = function(){
         if(!head) return;
         const first = head.item;
         head = head.next;
@@ -25,7 +25,7 @@ export default function LinkedList(){
         return first;
     }
 
-    this.getSize = function(){
+    this.size = function(){
         return size;
     }
 
